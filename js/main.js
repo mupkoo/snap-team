@@ -83,7 +83,7 @@
             .transform('r-45')
             .attr({
                 'fill-opacity': 0,
-                'stroke-width': 2,
+                'stroke-width': 1,
                 'stroke-opacity': 0.5,
                 'stroke': '#000'
             });
