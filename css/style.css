@@ -1,3 +1,19 @@
+body {
+    font-family: 'Helvetica Neue', Helvetica, Arial;
+}
+
+.main {
+    width: 800px;
+    margin: 50px auto 0;
+    text-align: center;
+}
+
+h1 {
+    font-weight: 300;
+    font-size: 26px;
+    text-transform: uppercase;
+}
+
 .animate {
     -webkit-transition: all .3s ease;
     -moz-transition: all .3s ease;
