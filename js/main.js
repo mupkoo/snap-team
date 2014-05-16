@@ -109,7 +109,8 @@
                 break;
 
             case 'scale':
-                console.log('Not implemented');
+                color.attr({ transform: 's0' });
+                color.animate({ transform: getExplodeShowMatrix(member), opacity: 1 }, 200);
                 break;
 
             case 'explode':
@@ -131,7 +132,7 @@
                 break;
 
             case 'scale':
-                console.log('Not implemented');
+                color.animate({ transform: getScaleHideMatrix(member), opacity: 0 }, 200, mina.linear);
                 break;
 
             case 'explode':
@@ -152,5 +153,10 @@
 
     function getExplodeHideMatrix(member) {
         return new Snap.Matrix().scale(2, 2, member.x + 130 /2, member.y + 130 /2);
+    }
+
+    // Scale specific
+    function getScaleHideMatrix(member) {
+        return new Snap.Matrix().scale(0, 0, member.x + 130 /2, member.y + 130 /2);
     }
 })();
