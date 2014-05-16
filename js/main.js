@@ -3,7 +3,8 @@
         grid = 160,
         imgSize = 130,
         outerSize = 100,
-        innerSize = 90;
+        innerSize = 90,
+        animation = 'fade';
 
     var team = {
         avi:    {
@@ -55,7 +56,9 @@
         if (zThis.hasClass('active')) return;
 
         $('#buttons button.active').removeClass('active');
-        $(this).addClass('active');
+        zThis.addClass('active');
+
+        animation = zThis.data('animation');
     });
 
     for (member in team) {
@@ -64,11 +67,6 @@
 
     function createMember(member) {
         var img, outer, mask, bnw, color, colorMask;
-
-        var showMatrix = new Snap.Matrix();
-        showMatrix.scale(1, 1, member.x + 130 /2, member.y + 130 /2);
-        var hideMatrix = new Snap.Matrix();
-        hideMatrix.scale(2, 2, member.x + 130 /2, member.y + 130 /2);
 
         img = s.image('img/' + member.img, member.x, member.y, imgSize, imgSize);
 
@@ -98,15 +96,59 @@
             });
 
         if (member.color) {
-            outer.mouseover(function () {
-                img.animate({ transform: hideMatrix, opacity: 0 }, 200, mina.bounce, function () { img.attr({ transform: 's0' }) });
-                color.animate({ transform: showMatrix, opacity: 1 }, 200, mina.bounce);
-            });
-
-            outer.mouseout(function () {
-                img.animate({ transform: showMatrix, opacity: 1 }, 200, mina.bounce);
-                color.animate({ transform: hideMatrix, opacity: 0 }, 200, mina.bounce, function () { color.attr({ transform: 's0' }) });
-            });
+            outer.mouseover(function () { resolveInAnimation(member, img, color); });
+            outer.mouseout(function () { resolveOutAnimation(member, img, color); });
         }
+    }
+
+    function resolveInAnimation(member, img, color) {
+        switch (animation) {
+            case 'fade':
+                console.log('Not impemented');
+                break;
+
+            case 'scale':
+                console.log('Not implemented');
+                break;
+
+            case 'explode':
+                img.animate({ transform: getExplodeHideMatrix(member), opacity: 0 }, 200, mina.bounce, function () { img.attr({ transform: 's0' }) });
+                color.animate({ transform: getExplodeShowMatrix(member), opacity: 1 }, 200, mina.bounce);
+                break;
+
+            case 'rotate':
+                console.log('Not implemented');
+                break;
+        }
+    }
+
+    function resolveOutAnimation(member, img, color) {
+        switch (animation) {
+            case 'fade':
+                console.log('Not impemented');
+                break;
+
+            case 'scale':
+                console.log('Not implemented');
+                break;
+
+            case 'explode':
+                img.animate({ transform: getExplodeShowMatrix(member), opacity: 1 }, 200, mina.bounce);
+                color.animate({ transform: getExplodeHideMatrix(member), opacity: 0 }, 200, mina.bounce, function () { color.attr({ transform: 's0' }) });
+                break;
+
+            case 'rotate':
+                console.log('Not implemented');
+                break;
+        }
+    }
+
+    // Explode specific
+    function getExplodeShowMatrix(member) {
+        return new Snap.Matrix().scale(1, 1, member.x + 130 /2, member.y + 130 /2);
+    }
+
+    function getExplodeHideMatrix(member) {
+        return new Snap.Matrix().scale(2, 2, member.x + 130 /2, member.y + 130 /2);
     }
 })();
