@@ -104,7 +104,8 @@
     function resolveInAnimation(member, img, color) {
         switch (animation) {
             case 'fade':
-                console.log('Not impemented');
+                color.attr({ transform: 's1' });
+                color.animate({ opacity: 1 }, 200);
                 break;
 
             case 'scale':
@@ -112,6 +113,7 @@
                 break;
 
             case 'explode':
+                color.attr({ transform: 's0' });
                 img.animate({ transform: getExplodeHideMatrix(member), opacity: 0 }, 200, mina.bounce, function () { img.attr({ transform: 's0' }) });
                 color.animate({ transform: getExplodeShowMatrix(member), opacity: 1 }, 200, mina.bounce);
                 break;
@@ -125,7 +127,7 @@
     function resolveOutAnimation(member, img, color) {
         switch (animation) {
             case 'fade':
-                console.log('Not impemented');
+                color.animate({ opacity: 0 }, 200);
                 break;
 
             case 'scale':
