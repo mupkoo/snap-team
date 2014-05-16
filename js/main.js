@@ -83,7 +83,7 @@
                 .transform('r-45')
                 .attr({ fill: '#fff' });
 
-            color.attr({ mask: colorMask, transform: 's0', opacity: 0 });
+            color.attr({ mask: colorMask, transform: 's1', opacity: 0 });
         }
 
         outer = s.rect(member.x + 15, member.y + 15, outerSize, outerSize)
@@ -104,23 +104,25 @@
     function resolveInAnimation(member, img, color) {
         switch (animation) {
             case 'fade':
-                color.attr({ transform: 's1' });
+                color.attr({ transform: 's1', opacity: 0, class: '' });
                 color.animate({ opacity: 1 }, 200);
                 break;
 
             case 'scale':
-                color.attr({ transform: 's0' });
+                color.attr({ transform: 's0', opacity: 0, class: '' });
                 color.animate({ transform: getExplodeShowMatrix(member), opacity: 1 }, 200);
                 break;
 
             case 'explode':
-                color.attr({ transform: 's0' });
+                color.attr({ transform: 's0', opacity: 0, class: '' });
                 img.animate({ transform: getExplodeHideMatrix(member), opacity: 0 }, 200, mina.bounce, function () { img.attr({ transform: 's0' }) });
                 color.animate({ transform: getExplodeShowMatrix(member), opacity: 1 }, 200, mina.bounce);
                 break;
 
             case 'rotate':
-                console.log('Not implemented');
+                color.attr({ opacity: 1, transform: 's1' });
+                img.attr({ class: 'animate rotate-out' });
+                color.attr({ class: 'animate rotate-in' });
                 break;
         }
     }
@@ -141,7 +143,8 @@
                 break;
 
             case 'rotate':
-                console.log('Not implemented');
+                img.attr({ class: 'animate rotate-in' });
+                color.attr({ class: 'animate rotate-out' });
                 break;
         }
     }
