@@ -49,6 +49,15 @@
         }
     };
 
+    $('#buttons').on('click', 'button', function () {
+        var zThis = $(this);
+
+        if (zThis.hasClass('active')) return;
+
+        $('#buttons button.active').removeClass('active');
+        $(this).addClass('active');
+    });
+
     for (member in team) {
         createMember(team[member]);
     }
